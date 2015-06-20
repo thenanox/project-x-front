@@ -1,21 +1,27 @@
 {
   "name": "proyect-x",
+  "description":"First Version of project x",
+  "author":"Project-x Team",
   "version": "0.0.0",
   "main": "server/app.js",
+  "repository": "https://github.com/thenanox/project-x-front",
   "dependencies": {
     "express": "~4.0.0",
+    "express-device": "~0.3.7",
     "morgan": "~1.0.0",
     "body-parser": "~1.5.0",
     "method-override": "~1.0.0",
     "serve-favicon": "~2.0.1",
     "cookie-parser": "~1.0.1",
+    "socket.io": "~0.9.16",
     "express-session": "~1.0.2",
     "errorhandler": "~1.0.0",
     "compression": "~1.0.1",
     "lodash": "~2.4.1",
     "jade": "~1.2.0",
     "composable-middleware": "^0.3.0",
-    "connect-mongo": "^0.4.1"
+    "connect-mongo": "^0.4.1",
+    "rethinkdb": "~2.0.0"
   },
   "devDependencies": {
     "grunt": "~0.4.4",

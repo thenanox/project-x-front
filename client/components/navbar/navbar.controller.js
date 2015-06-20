@@ -19,7 +19,7 @@ angular.module('proyectXApp')
 
     $scope.collapsed = function() {
       angular.element('.cmn-toggle-switch').toggleClass('active');
-    }
+    };
 
     $scope.isActive = function(route) {
       return route === $location.path();
