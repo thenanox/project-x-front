@@ -1,3 +1,9 @@
 div(ng-include='"components/navbar/navbar.html"')
 
 .container
+	.card(ng-repeat="card in cards")
+		img(src="assets/images/wall2-1024x768.jpg")
+		.cardcaption
+			h3 {{card.game}}
+			span {{card.description}}
+			a(href="").close-caption.hidden x
