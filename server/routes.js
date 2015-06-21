@@ -10,7 +10,7 @@ module.exports = function(app) {
 
   // Insert routes below
   /*app.use('/api/chats', require('./api/chat'));*/
-  app.use('/api/things', require('./api/thing'));
+  /*app.use('/api/things', require('./api/thing'));*/
   app.use('/api/cards', require('./api/card'));
 
   // All undefined asset or api routes should return a 404

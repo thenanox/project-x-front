@@ -1,22 +1,9 @@
-/**
- * Main application file
- */
-
 'use strict';
 
-// Set default node environment to development
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
-var express = require('express');
-var config = require('./config/environment');
-// Setup server
-var app = express();
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
+var io = require('../../app');
+//Setup database
 var r = require('rethinkdb');
 var connection = null;
-require('./config/express')(app);
-require('./routes')(app);
 
 r.connect({
     host: 'ec2-52-16-192-128.eu-west-1.compute.amazonaws.com',
@@ -26,19 +13,20 @@ r.connect({
         throw err;
     }
     connection = conn;
-    r.table('member').changes().run(connection, function (err, cursor) {
+});
+
+r.table('member').changes().run(connection, function(err, cursor) {
+    if (err) {
+        throw err;
+    }
+    cursor.each(function(err, row) {
         if (err) {
             throw err;
         }
-        cursor.each(function (err, row) {
-            if (err) {
-                throw err;
-            }
-            console.log(JSON.stringify(row, null, 2));
-            io.sockets.emit('new-identified', {
-                name: row.new_val.name,
-                timestamp: new Date().getTime()
-            });
+        console.log(JSON.stringify(row, null, 2));
+        io.sockets.emit('new-identified', {
+            name: row.new_val.name,
+            timestamp: new Date().getTime()
         });
     });
 });
@@ -85,12 +73,5 @@ io.sockets.on('connection', function (socket) {
 
         fn(); //call the client back to clear out the field
     });
-});
 
-// Start server
-server.listen(config.port, config.ip, function () {
-  console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
 });
-
-// Expose app
-exports = module.exports = app;
